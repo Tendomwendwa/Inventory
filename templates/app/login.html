@@ -1,0 +1,28 @@
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <div class="login-container">
+        <div class="login-box">
+
+    
+            <form class="login-form" action="{% url 'home' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Login</button>
+            </form>
+            {% if form.errors %}
+                <p style="color:red;">{{ form.non_field_errors }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock content %}

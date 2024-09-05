@@ -1,0 +1,22 @@
+{% extends 'layouts/a.html' %}
+
+{% block content %}
+
+{% for item in items %}
+
+<article class="card">
+    <div class="flex items-center justify-between px-4 h-14">
+        <h3 class="text-start leading-5 mr-1">{{ item.name }}</h3>
+    </div>
+    <div class="flex items-center justify-between px-4 h-14">
+        <h3 class="text-start leading-5 mr-1">{{ item.item_status }}</h3>
+    </div>
+    <div class="flex items-center justify-between px-4 h-14">
+        <h3 class="text-start leading-5 mr-1">{{ item.quantity }}</h3>
+    </div>
+    
+</article>   
+
+{% endfor%}
+
+{% endblock content %}
