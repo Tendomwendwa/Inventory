@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from.models import *
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, AuthenticationForm
+from django.contrib import messages
+from .forms import CustomUserCreationForm, CustomAuthenticationForm
+
 
 
 # Create your views here.
@@ -12,17 +15,31 @@ def home_view(request):
 def login_view(request):
     
     if request.method == 'POST':
-        form = LoginForm(request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect('home')
             else:
-                form.add_error(None, 'Invalid username or password')
+                form.add_error(None, "Invalid username or password.")
     else:
-        form = LoginForm()
+        form = CustomAuthenticationForm()
 
-    return render(request, 'app/login.html')
+    return render(request, 'app/login.html', {'form': form})
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  
+            messages.success(request, "Registration successful!")
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
+
+    return render(request, 'app/register.html', {'form': form})
