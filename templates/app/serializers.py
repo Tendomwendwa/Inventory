@@ -9,6 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
         
+        
     def create(self, validated_data):
         user = user.objects.create_user(
             username=validated_data['username'],
