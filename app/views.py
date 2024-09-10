@@ -5,7 +5,10 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, Auth
 from django.contrib import messages
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
-
+from django.contrib.auth.models import User
+from rest_framework import generics
+from rest_framework.permissions import AllowAny
+from .serializers import UserSerializer
 
 # Create your views here.
 def home_view(request):
@@ -43,3 +46,17 @@ def register_view(request):
         form = CustomUserCreationForm()
 
     return render(request, 'app/register.html', {'form': form})
+
+
+
+class RegisterUserView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = UserSerializer
+    
+class UserProfileView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    
+    def ger_object(self):
+        return self.request.user
