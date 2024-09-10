@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from.models import *
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
@@ -43,3 +42,12 @@ def register_view(request):
         form = CustomUserCreationForm()
 
     return render(request, 'app/register.html', {'form': form})
+
+def items_view(request):
+    return render(request, 'app/items.html')
+
+def items_requests_view(request):
+    return render(request, 'app/item_requests.html')
+
+def users_view(request):
+    return render(request, 'app/users.html')

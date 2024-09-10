@@ -41,8 +41,8 @@
                 </div>
             </li>
             {% else %}
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Signup</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Signup</a></li>
             {% endif %}
         </ul>
     </nav>
