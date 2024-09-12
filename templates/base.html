@@ -100,7 +100,7 @@
         }
 
         .hoverlist > * {
-        @apply  transition duration-150;
+        transition: background-color 150ms, color 150ms;
         }
 
         .hoverlist > *:hover {
@@ -109,7 +109,9 @@
         }
 
         .hoverlist>*>a {
-            @apply flex items-center p-2;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
         }
         .highlight {
             @apply !bg-indigo-100;
