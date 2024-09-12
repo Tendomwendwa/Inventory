@@ -4,7 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
 
-class CustomAuthenticationForm(AuthenticationForm):
+class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         label="username",
@@ -22,7 +22,7 @@ class CustomAuthenticationForm(AuthenticationForm):
         self.fields['password'].help_text = None
 
 
-class CustomUserCreationForm(UserCreationForm):
+class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User

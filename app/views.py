@@ -1,19 +1,33 @@
 from django.shortcuts import render, redirect
 from.models import *
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-
-from .forms import CustomUserCreationForm, CustomAuthenticationForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .forms import SignUpForm, AuthenticationForm
 
 # Create your views here.
 def home_view(request):
     items = Item.objects.all()
     return render(request, 'app/home.html', {'items' : items})
 
+def dashboard_view(request):
+    user_count = User.objects.count()
+    item_count = Item.objects.count()
+    items_requests_count = ItemRequest.objects.count()
+    
+    context = {
+        'user_count': user_count,
+        'item_count': item_count,
+        'items_requests_count': items_requests_count
+    }
+    return render(request, 'home.html', context)
+    
 
 def login_view(request):
     
     if request.method == 'POST':
-        form = CustomAuthenticationForm(request, data=request.POST)
+        form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -22,25 +36,40 @@ def login_view(request):
                 login(request, user)
                 return redirect('home')
             else:
-                form.add_error(None, "Invalid username or password.")
+                return render(request, 'account/login.html', {'form': form, 'error': 'Invalid credentials'})
+        else:
+            return render(request, 'account/login.html', {'form': form, 'error': 'Invalid form data'})
     else:
-        form = CustomAuthenticationForm()
+        form = AuthenticationForm()
 
     return render(request, 'account/login.html', {'form': form})
 
 
 def register_view(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)  
             messages.success(request, "Registration successful!")
             return redirect('home')
     else:
-        form = CustomUserCreationForm()
+        form = SignUpForm()
 
     return render(request, 'account/register.html', {'form': form})
+
+
+@login_required
+def some_form_view(request):
+    if request.method == 'POST':
+        form = SomeForm(request.POST)
+        if form.is_valid():
+            
+            form.save()
+            return redirect('success_url')  
+    else:
+        form = SomeForm()
+    return render(request, 'form_template.html', {'form': form})
 
 
 def users_view(request):
