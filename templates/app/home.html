@@ -1,38 +1,7 @@
 {% extends 'layouts/a.html' %}
 {% block content %}
-<style>
-    .box {
-        margin-bottom: 20px;
-        background-color: rgb(216, 217, 223);
-        padding: 20px;
-        border-radius: 10px;
-        overflow: auto;;
-    }
-    .container {
-        display: flex;
-        flex-direction: row;
-        gap: 20px; 
-        padding: 20px;
-        background-color: #f8f8f8;
-    }
-
-</style>
-
-<body>
 <div class="container">
+    <h2>Content Page</h2>
 
-    <article class="card box" id="item-req">
-        <section>
-            <h2>Dashboard Coming Soon</h2>
-            <div class="flex items-center justify-between px-4 h-14 border border-gray-300 rounded-lg p-2 mb-2">
-                <h3 class="text-start leading-5 mr-1">{{ request.id }}</h3>
-            </div>
-        </section>
- 
-    </article>
-    
 </div>
- 
-</body>
-
 {% endblock content %}

@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from.models import *
 from django.contrib.auth import authenticate, login
-from django.contrib import messages
+
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 
 # Create your views here.
 def home_view(request):
     items = Item.objects.all()
     return render(request, 'app/home.html', {'items' : items})
+
 
 def login_view(request):
     
@@ -25,7 +26,7 @@ def login_view(request):
     else:
         form = CustomAuthenticationForm()
 
-    return render(request, 'app/login.html', {'form': form})
+    return render(request, 'account/login.html', {'form': form})
 
 
 def register_view(request):
@@ -39,4 +40,14 @@ def register_view(request):
     else:
         form = CustomUserCreationForm()
 
-    return render(request, 'app/register.html', {'form': form})
+    return render(request, 'account/register.html', {'form': form})
+
+
+def users_view(request):
+    return render(request, 'app/users.html')
+
+def items_view(request):
+    return render(request, 'app/items.html')
+
+def items_requests_view(request):
+    return render(request, 'app/item_requests.html')
