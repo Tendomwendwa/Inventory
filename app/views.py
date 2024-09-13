@@ -84,3 +84,15 @@ def items_requests_view(request):
 
 def restocks_view(request):
     return render(request, 'app/restocks.html')
+
+def create_items_view(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        item_status = request.POST['item_status']
+        quantity = request.POST['quantity']
+        
+        # Save the new item to the database
+        Item.objects.create(name=name, item_status=item_status, quantity=quantity)
+        
+        return redirect('items')
+    return render(request, 'app/create_item.html')

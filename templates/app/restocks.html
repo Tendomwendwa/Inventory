@@ -1,4 +1,24 @@
 {% extends 'layouts/a.html' %}
 {% block content %}
-<h2>Restock Here</h2>
+
+<div class="container">
+    <article class="content">
+        <div class="flex items-center justify-between">
+            <h2>Restocks</h2>
+            <button class="mb-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add stock</button>
+        </div>
+        <table class="table-auto w-full border-collapse border border-gray-300">
+            <thead>
+                <tr>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Item</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Quantity</th>
+                    <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
+                </tr>
+            </thead>
+
+        </table>
+
+    </article>
+</div>
+
 {% endblock %}
