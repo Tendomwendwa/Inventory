@@ -3,28 +3,31 @@
 
     <div class = "container">
         <article class="content">
-            
             <h2>User Details</h2>
             <table class="table-auto w-full border border-gray-300">
                 <thead>
                     <tr>
-                        <th  class="border border-gray-300 px-4 py-2 text-left">Field</th>
-                        <th class="border border-gray-300 px-4 py-2 text-left">Value</th>
+                        <th  class="border border-gray-300 px-4 py-2 text-left">First Name</th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">Last Name</th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">Phone Number</th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">Department</th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">Creation Time</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="border border-gray-300 px-4 py-2">Name</td>
                         <td class="border border-gray-300 px-4 py-2">{{ user.username }}</td>
-                    </tr>
-                    <tr>
-                        <td class="border border-gray-300 px-4 py-2">Email</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ user.username }}</td>
                         <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
-                    </tr>                    
+                        <td class="border border-gray-300 px-4 py-2">{{ user.phone_number }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ user.department }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ user.created_at }}</td>
+                    </tr>
+                                      
                 </tbody>           
             </table>
         </article>
     </div>
-
 
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from.models import *
+from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
@@ -11,6 +11,7 @@ def home_view(request):
     items = Item.objects.all()
     return render(request, 'app/home.html', {'items' : items})
 
+
 def dashboard_view(request):
     user_count = User.objects.count()
     item_count = Item.objects.count()
@@ -21,7 +22,7 @@ def dashboard_view(request):
         'item_count': item_count,
         'items_requests_count': items_requests_count
     }
-    return render(request, 'home.html', context)
+    return render(request, 'app/dashboard.html', context)
     
 
 def login_view(request):
@@ -80,3 +81,6 @@ def items_view(request):
 
 def items_requests_view(request):
     return render(request, 'app/item_requests.html')
+
+def restocks_view(request):
+    return render(request, 'app/restocks.html')
