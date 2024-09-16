@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, AuthenticationForm
+from .forms import SignUpForm, AuthenticationForm, ItemForm
 
 # Create your views here.
 def home_view(request):
@@ -86,13 +86,14 @@ def restocks_view(request):
     return render(request, 'app/restocks.html')
 
 def create_items_view(request):
-    if request.method == 'POST':
-        name = request.POST['name']
-        item_status = request.POST['item_status']
-        quantity = request.POST['quantity']
+    if request.method == "POST":
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            
+    else:
+        form = ItemForm()
         
-        # Save the new item to the database
-        Item.objects.create(name=name, item_status=item_status, quantity=quantity)
-        
-        return redirect('items')
-    return render(request, 'app/create_item.html')
+    return render(request, 'app/create_items.html', {'form': form})
+    
+    

@@ -17,11 +17,13 @@
                 </tr>
             </thead>
             <tbody>
+                {% for item in items %}
                 <tr>
                     <td class="border border-gray-300 px-4 py-2">{{ item.name }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ item.item_status }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ item.quantity }}</td>
-                </tr>                 
+                </tr>     
+                {% endfor %}            
             </tbody>           
         </table>
     </article>

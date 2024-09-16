@@ -118,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_URL = '/login/' 
 LOGIN_REDIRECT_URL = '/home/' 
 LOGOUT_REDIRECT_URL = '/login/' 
-
+CREATE_ITEMS_REDIRECT_URL = '/create_items/' 
 
 
 # Internationalization

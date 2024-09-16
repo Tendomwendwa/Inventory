@@ -1,7 +1,7 @@
-from typing import Any
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
+from .models import Item
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -52,3 +52,9 @@ class SignUpForm(UserCreationForm):
             if User.objects.filter(email=email).exists():
                 raise forms.ValidationError("A user with this email address already exists.")
             return email
+        
+        
+class ItemForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = ['name', 'item_status', 'quantity']
