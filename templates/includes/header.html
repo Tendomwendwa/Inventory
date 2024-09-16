@@ -1,5 +1,5 @@
 {% load static %}
-<header x-data="{ mobilenavOpen: false }" class="md:flex items-center justify-between [&>*]:px-8 bg-gray-800 h-20 text-white sticky top-0 z-40">
+<header x-data="{ mobilenavOpen: false }" class="md:flex items-center justify-between [&>*]:px-8 h-20 text-white sticky top-0 z-40" style="background-color: rgb(6, 2, 63)">
     <div class="flex items-center justify-between h-20">
         <logo>
             <a class="flex items-center gap-1" href="/">
@@ -14,7 +14,7 @@
         </mobileicon>
     </div>
 
-    <nav x-show="mobilenavOpen" x-cloak class="md:!block bg-gray-800 h-screen w-screen md:h-auto md:w-auto -mt-20 md:mt-0 absolute md:relative z-[-1]">
+    <nav x-show="mobilenavOpen" x-cloak class="md:!block h-screen w-screen md:h-auto md:w-auto -mt-20 md:mt-0 absolute md:relative z-[-1]" style="background-color: rgb(6, 2, 63)">
         
         <ul class="flex items-center navitems flex-col md:flex-row gap-8 md:gap-0 justify-center h-full -translate-y-10 md:translate-y-0">
             {% if user.is_authenticated %}

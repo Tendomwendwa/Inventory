@@ -77,8 +77,8 @@ def users_view(request):
     return render(request, 'app/users.html')
 
 def items_view(request):
-    items = Item.objects.all()
-    return render(request, 'app/items.html', {'items': items})
+    item_list = Item.objects.all()
+    return render(request, 'app/items.html', {'items': item_list})
 
 def items_requests_view(request):
     return render(request, 'app/item_requests.html')
