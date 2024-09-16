@@ -77,7 +77,8 @@ def users_view(request):
     return render(request, 'app/users.html')
 
 def items_view(request):
-    return render(request, 'app/items.html')
+    items = Item.objects.all()
+    return render(request, 'app/items.html', {'items': items})
 
 def items_requests_view(request):
     return render(request, 'app/item_requests.html')
@@ -90,6 +91,7 @@ def create_items_view(request):
         form = ItemForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('items')
             
     else:
         form = ItemForm()

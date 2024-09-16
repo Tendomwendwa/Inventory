@@ -17,8 +17,8 @@ class User (models.Model):
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=20)
-    item_status = models.CharField(max_length=15)
+    name = models.CharField(max_length=50)
+    item_status = models.CharField(max_length=50)
     quantity = models.CharField(max_length=10)
    
     def __str__(self):
