@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
 
 
@@ -19,7 +18,7 @@ class Staff (models.Model):
 class Item(models.Model):
     STATUS_CHOICES = [
         ('available', 'Available'),
-        ('out_of stock', 'Out of Stock'),
+        ('out_of_stock', 'Out of Stock'),
     ]
     name = models.CharField(max_length=50)
     item_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
