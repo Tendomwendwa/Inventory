@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import home_view, login_view, register_view, users_view, items_view, items_requests_view, dashboard_view, restocks_view
 from .views import items_requests_view, dashboard_view, restocks_view, create_items_view
-
 urlpatterns = [
     path('', home_view, name='home'),
     path('dashboard/', dashboard_view, name='dashboard'),

@@ -98,4 +98,3 @@ def create_items_view(request):
         
     return render(request, 'app/create_items.html', {'form': form})
     
-    
