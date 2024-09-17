@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, AuthenticationForm, ItemForm
+from .forms import SignUpForm, AuthenticationForm, ItemForm, StaffForm
 
 # Create your views here.
 def home_view(request):
@@ -73,8 +73,8 @@ def some_form_view(request):
     return render(request, 'form_template.html', {'form': form})
 
 
-def users_view(request):
-    return render(request, 'app/users.html')
+def staff_view(request):
+    return render(request, 'app/staff.html')
 
 def items_view(request):
     item_list = Item.objects.all()
@@ -97,4 +97,16 @@ def create_items_view(request):
         form = ItemForm()
         
     return render(request, 'app/create_items.html', {'form': form})
+
+def create_staff_view(request):
+    if request.method == "POST":
+        form = StaffForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('staff')
+        
+    else:
+        form = StaffForm()
+        
+    return render(request, 'app/create_staff.html', {'form': form})
     

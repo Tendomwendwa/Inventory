@@ -3,7 +3,10 @@
 
     <div class = "container">
         <article class="content">
-            <h2>User Details</h2>
+            <div class="flex items-center justify-between">
+                <h2>User Details</h2>
+                <button class="mb-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"><a href="{% url 'create_staff' %}">Create Users</a></button>
+            </div>
             <table class="table-auto w-full border border-gray-300">
                 <thead>
                     <tr>
@@ -12,17 +15,15 @@
                         <th class="border border-gray-300 px-4 py-2 text-left">Email</th>
                         <th class="border border-gray-300 px-4 py-2 text-left">Phone Number</th>
                         <th class="border border-gray-300 px-4 py-2 text-left">Department</th>
-                        <th class="border border-gray-300 px-4 py-2 text-left">Creation Time</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="border border-gray-300 px-4 py-2">{{ user.username }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ user.username }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ user.email }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ user.phone_number }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ user.department }}</td>
-                        <td class="border border-gray-300 px-4 py-2">{{ user.created_at }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ staff.first_name }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ staff.last_name }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ staff.email }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ staff.phone_number }}</td>
+                        <td class="border border-gray-300 px-4 py-2">{{ staff.department }}</td>
                     </tr>
                                       
                 </tbody>           

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
-from .models import Item
+from .models import Item, Staff
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -58,3 +58,9 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ['name', 'item_status', 'quantity']
+        
+
+class StaffForm(forms.ModelForm):
+    class Meta:
+        model = Staff
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'department']     

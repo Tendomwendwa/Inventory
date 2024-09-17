@@ -15,10 +15,9 @@
     </div>
 
     <nav x-show="mobilenavOpen" x-cloak class="md:!block h-screen w-screen md:h-auto md:w-auto -mt-20 md:mt-0 absolute md:relative z-[-1]" style="background-color: rgb(6, 2, 63)">
-        
         <ul class="flex items-center navitems flex-col md:flex-row gap-8 md:gap-0 justify-center h-full -translate-y-10 md:translate-y-0">
             {% if user.is_authenticated %}
-            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'dashboard' %}">Home</a></li>
             <li><a href="{% url 'login' %}">Login</a></li>
             <li><a href="{% url 'register' %}">Sign Up</a></li>
             <li x-data="{ dropdownOpen: false }" class="relative">

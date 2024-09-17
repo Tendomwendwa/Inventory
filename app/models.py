@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
-class User (models.Model):
+class Staff (models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
@@ -17,18 +17,27 @@ class User (models.Model):
 
 
 class Item(models.Model):
+    STATUS_CHOICES = [
+        ('available', 'Available'),
+        ('out_of stock', 'Out of Stock'),
+    ]
     name = models.CharField(max_length=50)
-    item_status = models.CharField(max_length=50)
-    quantity = models.CharField(max_length=10)
+    item_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
+    quantity = models.IntegerField()
    
     def __str__(self):
         return f"{self.name}"
 
 
 class ItemRequest (models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    STATUS_CHOICES = [
+        ('approved', 'Approved'),
+        ('pending', 'Pending'),
+        ('declined', 'Declined'),
+    ]
+    user_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
-    request_status = models.CharField(max_length=20)
+    request_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Available')
     requested_at = models.DateTimeField(auto_now_add=True)    
     updated_at = models.DateTimeField(auto_now_add=True)
     
