@@ -17,8 +17,8 @@ class Staff (models.Model):
 
 class Item(models.Model):
     STATUS_CHOICES = [
-        ('available', 'Available'),
-        ('out_of_stock', 'Out of Stock'),
+        ('Available', 'Available'),
+        ('Out Of Stock', 'Out of Stock'),
     ]
     name = models.CharField(max_length=50)
     item_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
@@ -34,12 +34,20 @@ class ItemRequest (models.Model):
         ('pending', 'Pending'),
         ('declined', 'Declined'),
     ]
-    user_id = models.ForeignKey(Staff, on_delete=models.CASCADE)
-    item_id = models.ForeignKey(Item, on_delete=models.CASCADE)
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
     request_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Available')
     requested_at = models.DateTimeField(auto_now_add=True)    
     updated_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return f"{self.user_id}/ {self.item_id}/ {self.request_status}"
+    
+class Restock (models.Model):
+    item = models.CharField(max_length=50)
+    quantity = models.IntegerField()
+    restock_date = models.DateField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.item}"
     

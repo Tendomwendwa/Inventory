@@ -90,7 +90,10 @@ DATABASES = {
         'USER': 'internUser',
         'HOST': '64.225.10.172',
         'PASSWORD': 'internUser@2024',
-        'PORT': '3306'
+        'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {'ssl-disabled': True},
+        },
     }
 }
 

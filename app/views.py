@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, AuthenticationForm, ItemForm, StaffForm
+from .forms import SignUpForm, AuthenticationForm, ItemForm, StaffForm, ItemRequestForm, RestockForm
 
 # Create your views here.
 def home_view(request):
@@ -74,17 +74,20 @@ def some_form_view(request):
 
 
 def staff_view(request):
-    return render(request, 'app/staff.html')
+    staff_list = Staff.objects.all()
+    return render(request, 'app/staff.html', {'staff': staff_list})
 
 def items_view(request):
     item_list = Item.objects.all()
     return render(request, 'app/items.html', {'items': item_list})
 
 def items_requests_view(request):
-    return render(request, 'app/item_requests.html')
+    items_requests_list = ItemRequest.objects.all()
+    return render(request, 'app/item_requests.html', {'items_requests': items_requests_list})
 
 def restocks_view(request):
-    return render(request, 'app/restocks.html')
+    restock_list = Restock.objects.all()
+    return render(request, 'app/restocks.html', {'restocks': restock_list})
 
 def create_items_view(request):
     if request.method == "POST":
@@ -109,4 +112,25 @@ def create_staff_view(request):
         form = StaffForm()
         
     return render(request, 'app/create_staff.html', {'form': form})
+
+
+def create_item_requests_view(request):
+    if request.method == "POST":
+        form = ItemRequestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('item_requests')
+    else:
+        form = ItemRequestForm()
+    return render(request, 'app/create_item_requests.html', {'form': form})
+
+def create_restocks_view(request):
+    if request.method == "POST":
+        form = RestockForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('restocks')
+    else:
+        form = RestockForm()
+    return render(request, 'app/create_restocks.html', {'form': form})
     

@@ -1,21 +1,28 @@
 {% extends 'layouts/a.html' %}
-
 {% block content %}
 
 <div class="container">
     <article class="content">
+        <div class="flex items-center justify-between">
         <h2>Item Requests</h2>
+        <button class="mb-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"><a href="{% url 'create_item_requests' %}">Create Requests</a></button>
+        </div>
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead>
                 <tr>
-                    <th  class="border border-gray-300 px-4 py-2 text-left">Item Request</th>
+                    <th  class="border border-gray-300 px-4 py-2 text-left">Staff</th>
+                    <th  class="border border-gray-300 px-4 py-2 text-left">Item</th>
+                    <th  class="border border-gray-300 px-4 py-2 text-left">Request Status</th>
                 </tr>
             </thead>
             <tbody>
+                {% for item_request in items_requests %}
                 <tr>
+                    <td class="border border-gray-300 px-4 py-2">{{ item_request.staff }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ item_request.item }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ item_request.request_status }}</td>
                 </tr>
-                                   
+                 {% endfor %}                  
             </tbody>           
         </table>
     </article>

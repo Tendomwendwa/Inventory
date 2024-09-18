@@ -5,19 +5,24 @@
     <article class="content">
         <div class="flex items-center justify-between">
             <h2>Restocks</h2>
-            <button class="mb-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add stock</button>
+            <button class="mb-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"><a href="{% url 'create_restocks' %}">Add stock</a></button>
         </div>
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead>
                 <tr>
                     <th class="border border-gray-300 px-4 py-2 text-left">Item</th>
-                    <th class="border border-gray-300 px-4 py-2 text-left">Status</th>
                     <th class="border border-gray-300 px-4 py-2 text-left">Quantity</th>
                 </tr>
             </thead>
-
+            <tbody>
+                {% for restock in restocks %}
+                <tr>
+                    <td class="border border-gray-300 px-4 py-2 text-left"> {{ restock.item }} </td>
+                    <td class="border border-gray-300 px-4 py-2 text-left"> {{ restock.quantity }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
-
     </article>
 </div>
 
