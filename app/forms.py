@@ -40,19 +40,13 @@ class SignUpForm(UserCreationForm):
             'password2': 'Confirm Password',
         }
         
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.fields['username'].help_text = None
-            self.fields['email'].help_text = None
-            self.fields['password1'].help_text = None
-            self.fields['password2'].help_text = None
-
         def clean_email(self):
             email = self.cleaned_data.get('email')
             if User.objects.filter(email=email).exists():
                 raise forms.ValidationError("A user with this email address already exists.")
             return email
         
+
         
 class ItemForm(forms.ModelForm):
     class Meta:
@@ -74,3 +68,5 @@ class RestockForm(forms.ModelForm):
     class Meta:
         model = Restock
         fields = ['item', 'quantity']
+        
+        

@@ -2,12 +2,12 @@
 <header x-data="{ mobilenavOpen: false }" class="md:flex items-center justify-between [&>*]:px-8 h-20 text-white sticky top-0 z-40" style="background-color: rgb(6, 2, 63)">
     <div class="flex items-center justify-between h-20">
         <div class="flex flex-row items-center">
-            <div class="pr-20" style="width: 150px;">
+            <a class="mr-20" href="/">
                 <img src="{% static 'images/inventory_logo.png' %}" alt="Inventory Logo">
-            </div>
-            <a class="flex items-center gap-1" href="/">
-                <span class="text-lg font-bold"><h2>Inventory Management System</h2></span>
             </a>
+            <div class="flex items-center gap-1 ml-20">
+                <span class="text-lg font-bold"><h2>Inventory Management System</h2></span>
+            </div>
         </div>
         <mobileicon class="md:hidden">
             <a @click="mobilenavOpen = !mobilenavOpen" class="h-12 w-12 flex items-center justify-center cursor-pointer hover:bg-gray-700 rounded-lg">

@@ -5,7 +5,7 @@
     <article class="content">
         <div class="flex items-center justify-between">
         <h2>Item Requests</h2>
-        <button class="mb-auto bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"><a href="{% url 'create_item_requests' %}">Create Requests</a></button>
+        <button class="mb-3 text-white px-4 py-2 rounded hover:bg-blue-600"><a href="{% url 'create_item_requests' %}">Create Requests</a></button>
         </div>
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead>
@@ -13,6 +13,7 @@
                     <th  class="border border-gray-300 px-4 py-2 text-left">Staff</th>
                     <th  class="border border-gray-300 px-4 py-2 text-left">Item</th>
                     <th  class="border border-gray-300 px-4 py-2 text-left">Request Status</th>
+                    <th  class="border border-gray-300 px-4 py-2 text-left">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,6 +22,10 @@
                     <td class="border border-gray-300 px-4 py-2">{{ item_request.staff }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ item_request.item }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ item_request.request_status }}</td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        <a href="{% url 'edit_items_requests' item_request.id %}">Edit |</a>
+                        <a href="{% url 'delete_items_requests' item_request.id %}">Delete</a>
+                    </td>
                 </tr>
                  {% endfor %}                  
             </tbody>           

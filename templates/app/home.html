@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="text-center pb-5 pt-20">
+    <div class="text-center mb-10 mt-20">
         <h2>Inventory Report</h2>
         <table class="table-auto w-full border-collapse border border-gray-300">
             <thead>
@@ -33,11 +33,13 @@
                 </tr>
             </thead>
             <tbody>
+                {% for report in requests_reports %}
                 <tr>
-                    <td class="border border-gray-300 px-4 py-2"> {{staff.first_name}} </td>
-                    <td class="border border-gray-300 px-4 py-2"> {{item.name}} </td>
-                    <td class="border border-gray-300 px-4 py-2"> {{item_request.request_status}} </td>
+                    <td class="border border-gray-300 px-4 py-2"> {{report.staff_name}} </td>
+                    <td class="border border-gray-300 px-4 py-2"> {{report.item_name}} </td>
+                    <td class="border border-gray-300 px-4 py-2"> {{report.request_status}} </td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

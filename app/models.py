@@ -30,9 +30,9 @@ class Item(models.Model):
 
 class ItemRequest (models.Model):
     STATUS_CHOICES = [
-        ('approved', 'Approved'),
-        ('pending', 'Pending'),
-        ('declined', 'Declined'),
+        ('Approved', 'Approved'),
+        ('Pending', 'Pending'),
+        ('Declined', 'Declined'),
     ]
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
