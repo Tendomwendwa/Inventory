@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home_view, login_view, register_view, staff_view, items_view, items_requests_view, dashboard_view, restocks_view
+from .views import home_view, login_view, register_view,logout_view, staff_view, items_view, items_requests_view, dashboard_view, restocks_view
 from .views import items_requests_view, dashboard_view, restocks_view, reports_view
 from .views import create_items_view, create_staff_view, create_item_requests_view, create_restocks_view
 from .views import edit_staff_view, delete_staff_view, edit_items_view, delete_items_view, edit_restocks_view, delete_restocks_view, edit_items_requests_view, delete_items_requests_view
@@ -8,6 +8,7 @@ urlpatterns = [
     path('', home_view, name='home'),
     path('dashboard/', dashboard_view, name='dashboard'),
     path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
     path('staff/', staff_view, name='staff'),
     path('items/', items_view, name='items'),

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm, AuthenticationForm, ItemForm, StaffForm, ItemRequestForm, RestockForm
+from .forms import UserRegisterForm, AuthenticationForm, ItemForm, StaffForm, ItemRequestForm, RestockForm
 from django.db.models import F, Value
 from django.db.models.functions import Concat
 
@@ -20,12 +20,12 @@ def home_view(request):
 
 
 def dashboard_view(request):
-    user_count = User.objects.count()
+    staff_count = Staff.objects.count()
     item_count = Item.objects.count()
     items_requests_count = ItemRequest.objects.count()
     
     context = {
-        'user_count': user_count,
+        'staff_count': staff_count,
         'item_count': item_count,
         'items_requests_count': items_requests_count
     }
@@ -44,27 +44,27 @@ def login_view(request):
                 login(request, user)
                 return redirect('home')
             else:
-                return render(request, 'account/login.html', {'form': form, 'error': 'Invalid credentials'})
+                return render(request, 'accounts/login.html', {'form': form, 'error': 'Invalid credentials'})
         else:
-            return render(request, 'account/login.html', {'form': form, 'error': 'Invalid form data'})
+            return render(request, 'accounts/login.html', {'form': form, 'error': 'Invalid form data'})
     else:
         form = AuthenticationForm()
 
-    return render(request, 'account/login.html', {'form': form})
+    return render(request, 'accounts/login.html', {'form': form})
 
 
 def register_view(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save()  
             login(request, user)  
-            messages.success(request, "Registration successful!")
-            return redirect('home')
+            messages.success(request, 'Your account has been created successfully!')
+            return redirect('login')  
     else:
-        form = SignUpForm()
+        form = UserRegisterForm()  
 
-    return render(request, 'account/register.html', {'form': form})
+    return render(request, 'accounts/register.html', {'form': form})
 
 
 @login_required
@@ -78,6 +78,10 @@ def some_form_view(request):
     else:
         form = SomeForm()
     return render(request, 'form_template.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
 
 
 def staff_view(request):
@@ -157,17 +161,13 @@ def create_restocks_view(request):
     
 
 def edit_staff_view(request, staff_id):
-    staff = get_object_or_404(Staff, id=staff_id)
-    
-    if request.method == 'POST':
-        form = StaffForm(request.POST, instance=staff)
-        if form.is_valid():
-            form.save()
-            return redirect('staff')
-    else:
-        form = StaffForm(instance=staff)
+    staff = Staff.objects.get(pk=staff_id)
+    form = StaffForm(request.POST or None, instance=staff)
+    if form.is_valid():
+        form.save()
+        return redirect('staff')
         
-    return render(request, 'app/create_staff.html', {'form': form})
+    return render(request, 'app/edit_staff.html', {'item':staff, 'form':form})
 
 def delete_staff_view(request, staff_id):
     staff = get_object_or_404(Staff, id=staff_id)
@@ -176,17 +176,15 @@ def delete_staff_view(request, staff_id):
 
 
 def edit_items_view(request, item_id):
-    item = get_object_or_404(Item, id=item_id)
-    
-    if request.method == 'PUT':
-        form = ItemForm(request.PUT, request.Files, instance=item)
-        if form.is_valid():
-            form.save()
-            return redirect('items')
-    else:
-        form = ItemForm(instance=item)
-        
-    return render(request, 'app/create_items.html', {'form': form})
+    item = Item.objects.get(pk=item_id)
+    form = ItemForm(request.POST or None, instance=item)
+    if form.is_valid():
+        form.save()
+        return redirect('items')
+    return render(request, 'app/edit_items.html',
+        {'item':item,
+        'form':form})
+      
 
 def delete_items_view(request, item_id):
     item = get_object_or_404(Item, id=item_id)
@@ -195,17 +193,13 @@ def delete_items_view(request, item_id):
 
 
 def edit_restocks_view(request, restock_id):
-    restocks = get_object_or_404(Restock, id=restock_id)
-    
-    if request.method == 'POST':
-        form = RestockForm(request.POST, instance=restocks)
-        if form.is_valid():
-            form.save()
-            return redirect('restocks')
-    else:
-        form = RestockForm(instance=restocks)
-        
-    return render(request, 'app/create_restocks.html', {'form': form})
+    restock = Restock.objects.get(pk=restock_id)
+    form = RestockForm(request.POST or None, instance=restock)   
+    if form.is_valid():
+        form.save()
+        return redirect('restocks')
+    return render(request, 'app/edit_restock.html', {'restock':restock, 'form':form})
+  
 
 def delete_restocks_view(request, restock_id):
     restocks = get_object_or_404(Restock, id=restock_id)
@@ -214,15 +208,12 @@ def delete_restocks_view(request, restock_id):
 
 
 def edit_items_requests_view(request, item_request_id):
-    items_requests =get_object_or_404(ItemRequest, id=item_request_id)
-    if request.method == 'POST':
-        form = ItemRequestForm(request.POST, instance=items_requests)
-        if form.is_valid():
-            form.save()
-            return redirect('items_requests')
-    else:
-        form = ItemRequestForm(instance=items_requests)
-    return render(request, 'app/create_item_requests.html', {'form': form})
+    items_requests =ItemRequest.objects.get(pk=item_request_id)
+    form = ItemRequestForm(request.POST or None, instance=items_requests)
+    if form.is_valid():
+        form.save()
+        return redirect('item_requests')
+    return render(request, 'app/edit_item_requests.html', {'items_requests':items_requests, 'form': form})
 
 
 def delete_items_requests_view(request, item_request_id ):
