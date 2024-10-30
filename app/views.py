@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -67,17 +66,17 @@ def register_view(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 
-@login_required
-def some_form_view(request):
-    if request.method == 'POST':
-        form = SomeForm(request.POST)
-        if form.is_valid():
+# @login_required
+# def some_form_view(request):
+#     if request.method == 'POST':
+#         form = SomeForm(request.POST)
+#         if form.is_valid():
             
-            form.save()
-            return redirect('success_url')  
-    else:
-        form = SomeForm()
-    return render(request, 'form_template.html', {'form': form})
+#             form.save()
+#             return redirect('success_url')  
+#     else:
+#         form = SomeForm()
+#     return render(request, 'form_template.html', {'form': form})
 
 def logout_view(request):
     logout(request)
@@ -166,7 +165,6 @@ def edit_staff_view(request, staff_id):
     if form.is_valid():
         form.save()
         return redirect('staff')
-        
     return render(request, 'app/edit_staff.html', {'item':staff, 'form':form})
 
 def delete_staff_view(request, staff_id):

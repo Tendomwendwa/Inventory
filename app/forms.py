@@ -23,12 +23,10 @@ class CustomLoginForm(AuthenticationForm):
 
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField(required=True)  # Add an email field for the user
-
+    email = forms.EmailField(required=True)  
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']  # Fields for registration
-
+        fields = ['username', 'email', 'password1', 'password2'] 
     def save(self, commit=True):
         user = super().save(commit=False)
         user.email = self.cleaned_data['email']
@@ -52,7 +50,7 @@ class ItemRequestForm(forms.ModelForm):
     class Meta:
         model = ItemRequest
         fields = ['staff', 'item', 'request_status']
-        
+                      
 class RestockForm(forms.ModelForm):
     class Meta:
         model = Restock
